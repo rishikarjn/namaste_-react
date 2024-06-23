@@ -18,3 +18,40 @@ Minification
 -Error Handling
 -HTTPs
 -Tree Shaking:remove unused code
+
+
+
+
+
+#Food Ordering App
+
+/**
+ * Header
+ * -Logo
+ * -Nav Items
+ * Body
+ * -Search
+ * -RestaurantContainer
+ *  -RestaurantCard
+ *   -img
+ *   -Name of Res, Star Rating, cuisine
+ * Footer
+ * -Copyright
+ * -Links
+ * -Address
+ * -Contact
+ */
+
+
+Two types Export/Import
+
+-Default Export/Import
+
+export default Component;
+import Component from "path";
+
+-Named Export/Import
+
+export const Component;
+import {Component} from "path";
+
