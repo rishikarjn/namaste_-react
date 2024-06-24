@@ -1,4 +1,4 @@
-import { LOGO_URL } from "../../utils/conStants";
+import { LOGO_URL } from "../utils/constants";
 
 
 
