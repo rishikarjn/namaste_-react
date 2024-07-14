@@ -1,55 +1,24 @@
 import RestaurantCard from "./RestaurantCard";
-import resList from "../utils/mockData";
+// import resList from "../utils/mockData";
+import {useState,useEffect} from "react";
+
 
   
 
 const Body = () => {
+  //Local State Variable-Super powerful Variable
+  const[listOfRestaurants,setListOfRestraunt]=useState([]);
      
-  let listOfRestaurants=[
-    {
-    
-      
-        info: {
-          id: "7250823",
-          name: "Pizza Hut",
-          cloudinaryImageId: "490629b70f89da8a5b93fc199ece335e",
-          locality: "Kankar Bagh",
-          areaName: "Kankarbagh",
-          costForTwo: "₹350 for two",
-          cuisines: ["Pizzas"],
-          avgRating: 3.8,
-    
-          sla: {
-            deliveryTime: 32,
-            
+ useEffect(()=>{
+  fetchData();
+ },[]);
 
-        
-      },
-    },
-      
-  },
-  {
-    
-      
-    info: {
-      id: "725082",
-      name: "Domino's Pizza",
-      cloudinaryImageId: "490629b70f89da8a5b93fc199ece335e",
-      locality: "Kankar Bagh",
-      areaName: "Kankarbagh",
-      costForTwo: "₹350 for two",
-      cuisines: ["Pizzas"],
-      avgRating: 4.5,
-
-      sla: {
-        deliveryTime: 32,
-        
-
-    
-  },
-},
-},
-];
+ const fetchData=async()=>{
+   const data =await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=25.5940947&lng=85.1375645&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+   const json=await data.json();
+   console.log(json);
+   setListOfRestraunt(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+ };
 
 
     return (
@@ -58,19 +27,19 @@ const Body = () => {
           <button className="filter-btn"
           onClick={()=> {
             //Filter logic here
-            listOfRestaurants=listOfRestaurants.filter(
-              (res)=> res.data.avgRating >4
+            const filteredList=listOfRestaurants.filter(
+              (res)=> res.info.avgRating > 4
             );
 
-            console.log(listOfRestaurants);
+            setListOfRestraunt(filteredList);
           }}
           >
             Top Rated Restaurants
             </button>
         </div>
         <div className="res-container">
-          {listOfRestaurants.map((restaurant) => (
-            <RestaurantCard key={restaurant.data.id}resData={restaurant} />
+        {listOfRestaurants.map((restaurant) => (
+            <RestaurantCard key={restaurant.info.id}resData={restaurant} />
           ))}
         </div>
       </div>
@@ -95,4 +64,5 @@ const Body = () => {
 
 
 
-  
+
+
